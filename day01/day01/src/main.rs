@@ -15,41 +15,26 @@ fn lines_from_file(filename: impl AsRef<Path>) -> Vec<i32> {
 fn sum_3(numbers: &Vec<i32>) -> Vec<i32> {
     let mut res: Vec<i32> = Vec::new();
 
-    let mut i = 0;
-    let mut j = 1;
-    let mut k = 2;
+    let mut it = numbers.windows(3);
 
-
-    while k < numbers.len() {
-        let sum = numbers[i] + numbers[j] + numbers[k];
-
-        res.push(sum);
-
-        i += 1;
-        j += 1;
-        k += 1;
+    while let Some([i, j, k]) = it.next() {
+        res.push(i+j+k);
     }
 
     res
-
 }
 
 fn count_increases(numbers: &Vec<i32>) -> i32 {
-    let mut i = 0;
-    let mut j = 1;
-
+    let mut it = numbers.windows(2);
     let mut num_of_increases = 0;
 
-    while i < numbers.len() - 1 {
-        if numbers[i] < numbers[j] {
+    while let Some([left, right]) = it.next() {
+        if left < right {
             num_of_increases += 1;
         }
 
-
-        i += 1;
-        j += 1;
-
     }
+
     num_of_increases
 }
 
